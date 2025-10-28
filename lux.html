@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lux — Productora & Incubadora Audiovisual</title>
+  <link rel="icon" type="image/webp" href="estrella.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    :root{--primary:#135A91;--secondary:#5BA5C9;--tertiary:#AC68FF;--accent:#FA2991;--contrast:#A71748;--bg:#0b0b0b;--card:#0f1720;--muted:#9aa3ad;--white:#f8f9fa}
+    *{box-sizing:border-box}
+    body{font-family:'Inter', sans-serif;margin:0;background:linear-gradient(180deg,#05060a 0%, #0b0b0b 100%);color:var(--white);line-height:1.5;font-weight:400}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:28px}
+    header{padding:18px 0;position:relative;z-index:1000}
+    nav{display:flex;justify-content:space-between;align-items:center}
+    .logo{font-family:'Yeseva One',serif;font-weight:400;font-style:normal;letter-spacing:0.6px;font-size:30px}
+    .nav-links{display:flex;gap:18px}
+    .btn{background:var(--accent);color:#fff;padding:10px 16px;border-radius:8px;font-weight:700}
+
+    h1, h2, h3 {font-family:'Inter', sans-serif;font-weight:700;color:var(--white)}
+    p, a, li, span {font-family:'Inter', sans-serif;font-weight:400}
+
+    .hero {
+      padding: 140px 20px;
+      text-align: center;
+      background: url('lux4k.webp') no-repeat center center/cover;
+      position: relative;
+      color: var(--white);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 0;
+    }
+    .hero h1, .hero p, .cta-row {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1{font-size:42px;margin:0 0 10px}
+    .hero p{color:var(--muted);margin:0 0 18px;max-width:800px;margin-left:auto;margin-right:auto}
+    .cta-row{display:flex;justify-content:center;gap:12px}
+
+    section{padding:60px 20px;border-top:1px solid rgba(255,255,255,0.05)}
+    section p{max-width:850px;margin:10px auto;color:var(--muted)}
+
+    #quienes, #servicios, #panoptico {text-align:left;max-width:900px;margin:auto}
+
+    /* Sección de Servicios */
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+    .servicio-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+    .servicio-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .servicio-card h3 {
+      color: var(--secondary);
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+    .servicio-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .servicio-icon {
+      font-size: 36px;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    /* Diseño Panóptico con imagen */
+    #panoptico .panoptico-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+      flex-direction: row-reverse;
+    }
+    #panoptico img {
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    #panoptico div.text {
+      flex: 1;
+    }
+
+    #equipo {padding:60px 20px 60px 60px;}
+    .founders{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:24px}
+    .founder{background:var(--card);padding:20px;border-radius:10px;max-width:320px;text-align:center}
+    .founder img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:15px;border:3px solid var(--secondary)}
+
+    #contacto {padding:60px 20px 60px 60px;}
+    .contact-box{background:var(--card);padding:20px;border-radius:10px;max-width:400px;margin:20px auto;display:flex;flex-direction:column;gap:12px}
+
+    footer{padding:24px 0;text-align:center;color:var(--muted);font-size:14px}
+
+    @media (max-width:920px){
+      .hero{padding:100px 20px}
+      .nav-links{display:none}
+      .menu-toggle{display:flex}
+      .founders{flex-direction:column;align-items:center}
+      #panoptico .panoptico-content{flex-direction:column;align-items:center;text-align:center}
+      #panoptico img{width:100%;max-width:400px}
+      #equipo, #contacto {padding:60px 20px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">LUX</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="nav-links" id="menu">
+          <a href="#quienes">¿Quiénes somos?</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#panoptico">Panóptico</a>
+          <a href="#equipo">Fundadores</a>
+          <a href="#contacto" class="btn">Contactar</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Donde el Caribe se convierte en imagen.</h1>
+    <p>En Lux Estudios transformamos la energía creativa del Caribe colombiano en narrativas audiovisuales que mezclan arte, formación y territorio. Somos un laboratorio donde la experiencia práctica se convierte en aprendizaje y la identidad caribeña encuentra una voz visual única. Cada proyecto, taller y rodaje que realizamos busca descentralizar la producción audiovisual y demostrar que desde el Caribe también se crean universos cinematográficos.</p>
+    <div class="cta-row">
+      <a href="#servicios" class="btn">Conoce nuestro trabajo</a>
+      <a href="#contacto" class="btn" style="background:var(--secondary)">Únete a Lux</a>
+    </div>
+  </section>
+
+  <section id="quienes">
+    <h2>¿Quiénes somos?</h2>
+    <p>Lux Estudios es una productora e incubadora audiovisual fundada en Santa Marta, Colombia. Nacimos con la misión de combinar la creación artística con la formación técnica, permitiendo que nuevos realizadores aprendan desde la práctica y participen en proyectos reales. Creemos en el poder del Caribe como fuente de inspiración, identidad y resistencia cultural. Nuestra labor no solo produce obras audiovisuales, sino que también forma comunidades creativas comprometidas con contar historias auténticas y profundas.</p>
+  </section>
+
+  <section id="servicios">
+    <h2>Servicios</h2>
+    <p>En Lux Estudios ofrecemos una experiencia integral en producción y formación audiovisual, diseñada para transformar el ecosistema creativo del Caribe colombiano. Cada servicio combina la creación profesional con la formación práctica, permitiendo que el talento local aprenda produciendo y produzca aprendiendo.</p>
+    
+    <div class="servicios-grid">
+      <div class="servicio-card">
+        <span class="servicio-icon">🎬</span>
+        <h3>Producción Audiovisual Propia</h3>
+        <p>Desarrollamos cortometrajes, documentales y series web que visibilizan historias del Caribe colombiano. Cada rodaje funciona como una “escuela en el set”, integrando a realizadores emergentes bajo la mentoría de profesionales. Apostamos por narrativas sensibles, poéticas y socialmente comprometidas.</p>
+      </div>
+
+      <div class="servicio-card">
+        <span class="servicio-icon">🎥</span>
+        <h3>Servicios de Producción para Terceros</h3>
+        <p>Ofrecemos acompañamiento técnico, logístico y creativo a productoras, empresas o instituciones interesadas en filmar en el Caribe. Brindamos asistencia en scouting, casting, dirección de arte y postproducción, con equipos mixtos que combinan experiencia profesional y talento emergente local.</p>
+      </div>
+
+      <div class="servicio-card">
+        <span class="servicio-icon">🎓</span>
+        <h3>Talleres y Laboratorios Creativos</h3>
+        <p>Diseñamos espacios intensivos de formación en dirección, cámara, sonido, arte y montaje. A través de metodologías prácticas y colaborativas, fomentamos la creación experimental y el desarrollo de nuevas voces. Destaca nuestro laboratorio <strong>Panóptico</strong>, enfocado en el terror gótico y el cine transmedia.</p>
+      </div>
+
+      <div class="servicio-card">
+        <span class="servicio-icon">📽️</span>
+        <h3>Plataformas de Exhibición y Circulación</h3>
+        <p>Promovemos la proyección y distribución de obras de autores emergentes en espacios culturales, universidades y festivales. Nuestra plataforma digital y el universo <strong>Panóptico</strong> ofrecen experiencias transmedia que incluyen cortos, podcasts e ilustraciones, fortaleciendo la presencia del Caribe en la escena audiovisual.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="panoptico">
+    <h2>Panóptico</h2>
+    <div class="panoptico-content">
+      <div class="text">
+        <p><strong>Panóptico</strong> es el universo transmedia de Lux Estudios dedicado al terror gótico experimental. Es un espacio donde exploramos el miedo como lenguaje artístico y filosófico, conectando el imaginario caribeño con la oscuridad simbólica del género. A través de cortometrajes, podcasts, performance e ilustración, Panóptico crea un ecosistema narrativo que combina formación, experimentación y reflexión estética. Su objetivo es ofrecer una plataforma para autores emergentes interesados en desafiar los límites del audiovisual tradicional.</p>
+      </div>
+      <img src="panoptico.webp" alt="Poster Panóptico">
+    </div>
+  </section>
+
+  <section id="equipo">
+    <h2>Fundadores</h2>
+    <div class="founders">
+      <div class="founder">
+        <img src="Carlos Mario Velásquez Ferreira.webp" alt="Carlos Mario Velásquez Ferreira">
+        <h3>Carlos Mario Velásquez Ferreira</h3>
+        <p>Director, guionista y fundador de Lux Estudios. Showrunner del universo Panóptico, su trabajo se enfoca en la construcción de narrativas que fusionan el terror psicológico con la identidad caribeña. Su visión combina el arte, la gestión y la educación audiovisual como herramientas de transformación cultural.</p>
+      </div>
+      <div class="founder">
+        <img src="Sara Sofía Bonilla Hurtado.webp" alt="Sara Sofía Bonilla Hurtado">
+        <h3>Sara Sofía Bonilla Hurtado</h3>
+        <p>Productora general de Lux Estudios. Es el eje organizativo y creativo del estudio, encargada de gestionar la producción de cada proyecto con sensibilidad y precisión. Su enfoque une la poesía visual con la eficiencia logística, garantizando que cada obra conserve coherencia estética y propósito narrativo.</p>
+      </div>
+      <div class="founder">
+        <img src="Cristian Durán Jiménez.webp" alt="Cristian Durán Jiménez">
+        <h3>Cristian Durán Jiménez</h3>
+        <p>Director de fotografía. Su mirada técnica y artística traduce las atmósferas del Caribe colombiano en imágenes intensas y evocadoras. Especialista en el uso expresivo de la luz y la composición, aporta a cada proyecto un sello visual distintivo que mezcla naturalismo y tensión cinematográfica.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <p>¿Tienes una historia que contar, un proyecto que desarrollar o una colaboración que proponer? En Lux Estudios creemos en la creación colectiva. Escríbenos a <strong>contacto@luxestudios.com</strong> o utiliza el siguiente formulario para enviarnos un mensaje directo:</p>
+    <div class="contact-box">
+      <input type="text" placeholder="Nombre" required>
+      <input type="email" placeholder="Correo electrónico" required>
+      <textarea rows="4" placeholder="Escribe tu mensaje..."></textarea>
+      <button>Enviar mensaje</button>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Lux Estudios Colombia. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      const menu=document.getElementById('menu');
+      menu.classList.toggle('mobile-active');
+    }
+  </script>
+</body>
+</html>
