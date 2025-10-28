@@ -7,145 +7,703 @@
   <link rel="icon" type="image/webp" href="estrella.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Yeseva+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Yeseva+One&display=swap" rel="stylesheet">
   <style>
-    :root{--primary:#135A91;--secondary:#5BA5C9;--tertiary:#AC68FF;--accent:#FA2991;--contrast:#A71748;--bg:#0b0b0b;--card:#0f1720;--muted:#9aa3ad;--white:#f8f9fa}
-    *{box-sizing:border-box}
-    body{font-family:'Inter', sans-serif;margin:0;background:linear-gradient(180deg,#05060a 0%, #0b0b0b 100%);color:var(--white);line-height:1.5;font-weight:400}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1100px;margin:0 auto;padding:28px}
-    header{padding:18px 0;position:relative;z-index:1000}
-    nav{display:flex;justify-content:space-between;align-items:center}
-    .logo{font-family:'Yeseva One',serif;font-weight:400;font-style:normal;letter-spacing:0.6px;font-size:30px}
-    .nav-links{display:flex;gap:18px}
-    .btn{background:var(--accent);color:#fff;padding:10px 16px;border-radius:8px;font-weight:700}
+    :root {
+      --primary:#135A91;
+      --secondary:#5BA5C9;
+      --tertiary:#AC68FF;
+      --accent:#FA2991;
+      --contrast:#A71748;
+      --bg:#0b0b0b;
+      --card:#0f1720;
+      --muted:#9aa3ad;
+      --white:#f8f9fa;
+    }
 
-    h1, h2, h3 {font-family:'Inter', sans-serif;font-weight:700;color:var(--white)}
-    p, a, li, span {font-family:'Inter', sans-serif;font-weight:400}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body {
+      font-family:'Inter', sans-serif;
+      background:linear-gradient(180deg,#05060a 0%, #0b0b0b 100%);
+      color:var(--white);
+      line-height:1.6;
+    }
 
+    a {color:inherit;text-decoration:none;}
+
+    header {
+      position:sticky;
+      top:0;
+      background:rgba(0,0,0,0.85);
+      backdrop-filter:blur(8px);
+      z-index:1000;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+
+    nav {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      max-width:1100px;
+      margin:auto;
+      padding:12px 24px;
+    }
+
+    .logo img {
+      height:68px;
+      transition:transform 0.3s ease;
+    }
+    .logo img:hover {transform:scale(1.05);}
+
+    .nav-links {
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+
+    .nav-links a {
+      font-weight:500;
+      transition:color 0.2s ease;
+    }
+
+    .nav-links a:hover {color:var(--secondary);}
+
+    .btn {
+      background:var(--accent);
+      color:#fff;
+      padding:10px 16px;
+      border-radius:8px;
+      font-weight:700;
+      transition:background 0.3s ease;
+    }
+
+    .btn:hover {background:var(--contrast);}
+
+    /* Menu hamburguesa */
+    .menu-toggle {
+      display:none;
+      flex-direction:column;
+      gap:5px;
+      cursor:pointer;
+    }
+    .menu-toggle span {
+      width:25px;
+      height:3px;
+      background:var(--white);
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    @media (max-width:900px) {
+      .nav-links {
+        position:absolute;
+        top:70px;
+        left:0;
+        right:0;
+        background:#0b0b0b;
+        flex-direction:column;
+        align-items:center;
+        gap:18px;
+        padding:20px;
+        display:none;
+      }
+      .nav-links.mobile-active {display:flex;}
+      .menu-toggle {display:flex;}
+    }
+
+    /* Hero */
     .hero {
-      padding: 140px 20px;
-      text-align: center;
-      background: url('lux4k.webp') no-repeat center center/cover;
-      position: relative;
-      color: var(--white);
+      padding:140px 20px;
+      text-align:center;
+      background:url('lux4k.webp') no-repeat center/cover;
+      position:relative;
+      color:var(--white);
     }
     .hero::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.55);
-      z-index: 0;
+      content:"";
+      position:absolute;
+      top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.55);
+      z-index:0;
     }
-    .hero h1, .hero p, .cta-row {
-      position: relative;
-      z-index: 1;
+    .hero h1, .hero p, .cta-row {position:relative; z-index:1;}
+    .hero h1 {font-size:42px;margin-bottom:10px;}
+    .hero p {
+      color:var(--muted);
+      max-width:800px;
+      margin:0 auto 18px;
     }
+    .cta-row {display:flex;justify-content:center;gap:12px;}
 
-    .hero h1{font-size:42px;margin:0 0 10px}
-    .hero p{color:var(--muted);margin:0 0 18px;max-width:800px;margin-left:auto;margin-right:auto}
-    .cta-row{display:flex;justify-content:center;gap:12px}
+    section {padding:60px 20px;border-top:1px solid rgba(255,255,255,0.05);}
+    section p {max-width:850px;margin:10px auto;color:var(--muted);}
+    #quienes, #servicios, #clientes, #panoptico {max-width:900px;margin:auto;text-align:left;}
 
-    section{padding:60px 20px;border-top:1px solid rgba(255,255,255,0.05)}
-    section p{max-width:850px;margin:10px auto;color:var(--muted)}
-
-    #quienes, #servicios, #panoptico {text-align:left;max-width:900px;margin:auto}
-
-    /* Sección de Servicios */
+    /* Tarjetas */
     .servicios-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      margin-top: 30px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:24px;
+      margin-top:30px;
     }
     .servicio-card {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 24px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-align: center;
+      background:var(--card);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:12px;
+      padding:24px;
+      text-align:center;
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
     }
     .servicio-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
-    .servicio-card h3 {
-      color: var(--secondary);
-      margin-bottom: 12px;
-      font-size: 20px;
-    }
-    .servicio-card p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
+      transform:translateY(-6px);
+      box-shadow:0 8px 20px rgba(0,0,0,0.4);
     }
     .servicio-icon {
-      font-size: 36px;
-      color: var(--accent);
-      margin-bottom: 14px;
-      display: block;
+      font-size:36px;
+      color:var(--accent);
+      margin-bottom:14px;
+      display:block;
+    }
+    .servicio-card h3 {color:var(--secondary);margin-bottom:10px;}
+    .servicio-card p {color:var(--muted);font-size:15px;line-height:1.6;}
+
+    /* Sección clientes con fondo distinto */
+    #clientes {
+      background:linear-gradient(180deg,#0f1720 0%, #101820 100%);
+      border:none;
+      box-shadow:0 -4px 10px rgba(0,0,0,0.3);
     }
 
-    /* Diseño Panóptico con imagen */
+    /* Panóptico */
     #panoptico .panoptico-content {
-      display: flex;
-      align-items: flex-start;
-      gap: 30px;
-      flex-direction: row-reverse;
+      display:flex;
+      align-items:flex-start;
+      gap:30px;
+      flex-direction:row-reverse;
     }
     #panoptico img {
-      width: 300px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      width:300px;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.5);
     }
-    #panoptico div.text {
-      flex: 1;
-    }
+    #panoptico .text {flex:1;}
 
-    #equipo {padding:60px 20px 60px 60px;}
-    .founders{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:24px}
-    .founder{background:var(--card);padding:20px;border-radius:10px;max-width:320px;text-align:center}
-    .founder img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:15px;border:3px solid var(--secondary)}
+    /* --- Ajuste responsivo Panóptico --- */
+@media screen and (max-width: 920px) {
+  #panoptico .panoptico-content {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
 
-    #contacto {padding:60px 20px 60px 60px;}
-    .contact-box{background:var(--card);padding:20px;border-radius:10px;max-width:400px;margin:20px auto;display:flex;flex-direction:column;gap:12px}
+  #panoptico .text {
+    width: 100%;
+    text-align: center;
+  }
 
-    footer{padding:24px 0;text-align:center;color:var(--muted);font-size:14px}
+  #panoptico img {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+}
 
-    @media (max-width:920px){
-      .hero{padding:100px 20px}
-      .nav-links{display:none}
-      .menu-toggle{display:flex}
-      .founders{flex-direction:column;align-items:center}
-      #panoptico .panoptico-content{flex-direction:column;align-items:center;text-align:center}
-      #panoptico img{width:100%;max-width:400px}
-      #equipo, #contacto {padding:60px 20px;}
-    }
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+    /* Fundadores */
+#equipo {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.founder {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+}
+.founder img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--secondary);
+}
+
+/* Contacto */
+#contacto {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+
+.contact-box {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input, textarea {
+  background: #11161f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 10px;
+  color: var(--white);
+}
+
+button {
+  background: var(--accent);
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: var(--contrast);
+}
+    footer {padding:24px 0;text-align:center;color:var(--muted);font-size:14px;}
+    
   </style>
 </head>
 <body>
   <header>
-    <div class="container">
-      <nav>
-        <div class="logo">LUX</div>
-        <div class="menu-toggle" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="nav-links" id="menu">
-          <a href="#quienes">¿Quiénes somos?</a>
-          <a href="#servicios">Servicios</a>
-          <a href="#panoptico">Panóptico</a>
-          <a href="#equipo">Fundadores</a>
-          <a href="#contacto" class="btn">Contactar</a>
-        </div>
-      </nav>
-    </div>
+    <nav>
+      <div class="logo"><img src="LUX.webp" alt="Lux Estudios"></div>
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="nav-links" id="menu">
+        <a href="#quienes">¿Quiénes somos?</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#clientes">Clientes</a>
+        <a href="#panoptico">Panóptico</a>
+        <a href="#equipo">Fundadores</a>
+        <a href="#contacto" class="btn">Contactar</a>
+      </div>
+    </nav>
   </header>
 
   <section class="hero">
@@ -191,6 +749,39 @@
         <p>Promovemos la proyección y distribución de obras de autores emergentes en espacios culturales, universidades y festivales. Nuestra plataforma digital y el universo <strong>Panóptico</strong> ofrecen experiencias transmedia que incluyen cortos, podcasts e ilustraciones, fortaleciendo la presencia del Caribe en la escena audiovisual.</p>
       </div>
     </div>
+  </section>
+
+  <section id="clientes">
+    <h2>Clientes Objetivo</h2>
+    <p>Lux Estudios se dirige a una comunidad diversa de creadores, instituciones y empresas que comparten una visión: transformar el Caribe colombiano en un epicentro de producción, aprendizaje y experimentación audiovisual. Nuestros clientes y aliados pertenecen a cuatro segmentos principales:</p>
+
+    <div class="servicios-grid">
+      <div class="servicio-card">
+        <span class="servicio-icon">🎓</span>
+        <h3>Talento Emergente</h3>
+        <p>Jóvenes entre 18 y 30 años —estudiantes, egresados, artistas visuales y autodidactas— que buscan espacios para producir, experimentar y formarse. Encuentran en <strong>Panóptico</strong> y en nuestros talleres una oportunidad para aprender haciendo, compartir procesos y construir comunidad creativa.</p>
+      </div>
+
+      <div class="servicio-card">
+        <span class="servicio-icon">🎬</span>
+        <h3>Productoras y Empresas</h3>
+        <p>Productoras independientes, colectivos y compañías que desean filmar en el Caribe colombiano. Ofrecemos servicios técnicos, logísticos y creativos con equipos mixtos —profesionales experimentados y talento local emergente—, garantizando eficiencia y autenticidad territorial.</p>
+      </div>
+
+      <div class="servicio-card">
+        <span class="servicio-icon">🏫</span>
+        <h3>Instituciones Educativas y Culturales</h3>
+        <p>Universidades, escuelas de cine, centros culturales y colectivos que buscan fortalecer la formación audiovisual y vincular a sus estudiantes con proyectos reales. Lux Estudios diseña talleres, laboratorios y asesorías adaptadas al contexto regional y a los objetivos pedagógicos de cada aliado.</p>
+      </div>
+
+      <div class="servicio-card">
+        <span class="servicio-icon">🌙</span>
+        <h3>Público Cultural y Audiencias Alternativas</h3>
+        <p>Espectadores interesados en el cine de autor, el terror gótico, las narrativas experimentales y el arte contemporáneo. A través de <strong>Panóptico</strong>, ofrecemos cortos, podcasts, ilustraciones y experiencias inmersivas que conectan con una sensibilidad estética distinta y desafiante.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:30px;text-align:center;color:var(--muted);">Nuestros clientes comparten un mismo espíritu: buscan propuestas auténticas, arriesgadas y con identidad territorial. Lux Estudios no solo produce contenido, sino que cultiva comunidad, impulsa trayectorias y convierte el miedo en lenguaje.</p>
   </section>
 
   <section id="panoptico">
@@ -241,8 +832,7 @@
 
   <script>
     function toggleMenu(){
-      const menu=document.getElementById('menu');
-      menu.classList.toggle('mobile-active');
+      document.getElementById('menu').classList.toggle('mobile-active');
     }
   </script>
 </body>
